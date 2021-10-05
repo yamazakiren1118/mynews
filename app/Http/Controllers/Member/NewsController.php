@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Member;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,6 +10,6 @@ class NewsController extends Controller
     //
     public function add()
     {
-        return view('admin.news.create');
+        return view('member.news.create');
     }
 }

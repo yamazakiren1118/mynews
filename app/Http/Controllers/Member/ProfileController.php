@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Member;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,22 +10,22 @@ class ProfileController extends Controller
     //
     public function add()
     {
-        return view('admin.profile.create');
+        return view('member.profile.create');
     }
 
     public function create()
     {
-        return redirect('admin/profile/create');
+        return redirect('member/profile/create');
     }
 
     public function edit()
     {
-        return view('admin.profile.edit');
+        return view('member.profile.edit');
     }
 
     public function update()
     {
-        return redirect('admin/profile/edit');
+        return redirect('member/profile/edit');
     }
 }
 /*
