@@ -1,4 +1,4 @@
-@extends('layout.member')
+@extends('layouts.member')
 
 @section('title', 'ニュースの新規作成')
 

@@ -16,11 +16,11 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'member'], function(){
-    Route::get('news/create', 'Member\NewsController@add');
+    Route::get('news/create', 'Member\NewsController@add')->middleware('auth');
 
     // 課題追加分
-    Route::get('profile/create', 'Member\ProfileController@add');
-    Route::get('profile/edit', 'Member\ProfileController@edit');
+    Route::get('profile/create', 'Member\ProfileController@add')->middleware('auth');
+    Route::get('profile/edit', 'Member\ProfileController@edit')->middleware('auth');
 });
 
 // 課題追加分
@@ -35,3 +35,6 @@ routes/web.phpで定義します。
 あなたが考える、group化をすることのメリットを考えてみてください
 admin/から始まるURLをまとめておけるため可読性が上がると考えます。
 */
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
