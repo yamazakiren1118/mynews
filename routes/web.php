@@ -17,10 +17,15 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'member'], function(){
     Route::get('news/create', 'Member\NewsController@add')->middleware('auth');
+    Route::post('news/create', 'Member\NewsController@create');
 
     // 課題追加分
     Route::get('profile/create', 'Member\ProfileController@add')->middleware('auth');
+    Route::post('profile/create', 'Member\ProfileController@create');
+
     Route::get('profile/edit', 'Member\ProfileController@edit')->middleware('auth');
+    Route::post('profile/edit', 'Member\ProfileController@update');
+    
 });
 
 // 課題追加分

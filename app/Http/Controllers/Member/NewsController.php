@@ -12,4 +12,9 @@ class NewsController extends Controller
     {
         return view('member.news.create');
     }
+
+    public function create(Request $request)
+    {
+        return redirect('member/news/create');
+    }
 }
