@@ -18,6 +18,11 @@ Route::get('/', function () {
 Route::group(['prefix' => 'member'], function(){
     Route::get('news/create', 'Member\NewsController@add')->middleware('auth');
     Route::post('news/create', 'Member\NewsController@create');
+    Route::get('news', 'Member\NewsController@index')->middleware('auth');
+
+    Route::get('news/edit', 'Member\NewsController@edit')->middleware('auth');
+    Route::post('news/edit', 'Member\NewsController@update')->middleware('auth');
+    Route::get('news/delete','Member\NewsController@delete')->middleware('auth');
 
     // 課題追加分
     Route::get('profile/create', 'Member\ProfileController@add')->middleware('auth');

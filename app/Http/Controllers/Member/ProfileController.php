@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+
+
 use App\Profile;
 
 class ProfileController extends Controller
@@ -12,6 +14,8 @@ class ProfileController extends Controller
     //
     public function add()
     {
+        $profile = Profile::all();
+        dd($profile);
         return view('member.profile.create');
     }
 
@@ -21,19 +25,31 @@ class ProfileController extends Controller
         $profile = new Profile;
         $form = $request->all();
 
+        unset($form['_token']);
         $profile->fill($form);
         $profile->save();
         return redirect('member/profile/create');
     }
 
-    public function edit()
+    public function edit(Request $request)
     {
-        return view('member.profile.edit');
+        $profile = Profile::find($request->id);
+        if(empty($profile)){
+            abort(404);
+        }
+        return view('member.profile.edit', ['profile_form' => $profile]);
     }
 
-    public function update()
+    public function update(Request $request)
     {
-        return redirect('member/profile/edit');
+        $this->validate($request, Profile::$rules);
+        $profile = Profile::find($request->id); 
+
+        $form = $request->all();
+        unset($form['_token']);
+        // dd($profile);
+        $profile->fill($form)->save();
+        return redirect('member/news');
     }
 }
 /*

@@ -29,8 +29,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item"><a href="#" class="nav-link">あなたの投稿一覧</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">新規投稿</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">プロフィール編集</a></li>
+                        <li class="nav-item"><a href="{{ action('Member\NewsController@add') }}" class="nav-link">新規投稿</a></li>
+                        <li class="nav-item"><a href="{{ action('Member\ProfileController@edit', ['id' => Auth::id()])}}" class="nav-link">プロフィール編集</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         @guest
