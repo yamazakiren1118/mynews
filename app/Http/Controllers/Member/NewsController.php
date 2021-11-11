@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-
+use Illuminate\Support\Facades\Auth;
 
 use App\News;
+use App\History;
+use Carbon\Carbon;
 // use App\User;
 // use Illuminate\Support\Facades\Hash;
 
@@ -39,6 +41,8 @@ class NewsController extends Controller
         unset($form['image']);
 
         $news->fill($form);
+
+        $news->user_id = Auth::id();
         
         $news->save();
         return redirect('member/news/create');
@@ -92,7 +96,14 @@ class NewsController extends Controller
         unset($news_form['remove']);
         unset($news_form['_token']);
 
+        
+
         $news->fill($news_form)->save();
+
+        $history = new History;
+        $history->news_id = $news->id;
+        $history->edited_at = Carbon::now();
+        $history->save();
 
         return redirect('member/news');
     }

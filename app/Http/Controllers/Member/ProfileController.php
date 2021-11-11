@@ -8,6 +8,12 @@ use App\Http\Controllers\Controller;
 
 
 use App\Profile;
+use App\User;
+
+use App\HistorieProfile;
+use Carbon\Carbon;
+
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -15,7 +21,7 @@ class ProfileController extends Controller
     public function add()
     {
         $profile = Profile::all();
-        dd($profile);
+        // dd($profile);
         return view('member.profile.create');
     }
 
@@ -27,13 +33,20 @@ class ProfileController extends Controller
 
         unset($form['_token']);
         $profile->fill($form);
+
+        $profile->user_id = Auth::id();
         $profile->save();
+        
         return redirect('member/profile/create');
     }
 
     public function edit(Request $request)
     {
-        $profile = Profile::find($request->id);
+        // dd(Auth::user()->profile);
+        // $profile = Profile::where('user_id', $request->id)->get();
+        $profile = Auth::user()->profile;
+
+        $history = new HistorieProfile;
         if(empty($profile)){
             abort(404);
         }
@@ -49,6 +62,12 @@ class ProfileController extends Controller
         unset($form['_token']);
         // dd($profile);
         $profile->fill($form)->save();
+
+        $history = new HistorieProfile;
+        $history->profile_id = $profile->id;
+        $history->edited_at = Carbon::now();
+        $history->save();
+
         return redirect('member/news');
     }
 }

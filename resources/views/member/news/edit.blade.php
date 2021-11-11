@@ -24,9 +24,7 @@
                     <div class="form-group row">
                         <label for="body" class="col-md-2">本文</label>
                         <div class="col-md-10">
-                            <textarea rows="20" class="form-control" name="body" >
-                                {{ $news_form->body}}
-                            </textarea>
+                            <textarea rows="20" class="form-control" name="body" >{{ $news_form->body}}</textarea>
                         </div>
                     </div>
 
@@ -55,6 +53,18 @@
                         </div>
                     </div>
                 </form>
+                <div class="row mt-5">
+                    <div class="col-md-4 mx-auto">
+                        <h2>編集履歴</h2>
+                        <ul class="list-group">
+                            @if ($news_form->histories != NULL)
+                                @foreach($news_form->histories as $history)
+                                    <li class="list-group-item">{{ $history->edited_at }}</li>
+                                @endforeach
+                            @endif
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
