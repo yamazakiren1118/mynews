@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 use App\News;
-use App\History;
+use App\NewsHistory;
 use Carbon\Carbon;
 // use App\User;
 // use Illuminate\Support\Facades\Hash;
@@ -100,7 +100,7 @@ class NewsController extends Controller
 
         $news->fill($news_form)->save();
 
-        $history = new History;
+        $history = new NewsHistory;
         $history->news_id = $news->id;
         $history->edited_at = Carbon::now();
         $history->save();

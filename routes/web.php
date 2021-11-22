@@ -48,3 +48,5 @@ admin/から始まるURLをまとめておけるため可読性が上がると�
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/', 'NewsController@index');

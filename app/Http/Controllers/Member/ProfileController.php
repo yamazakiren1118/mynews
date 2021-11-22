@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Profile;
 use App\User;
 
-use App\HistorieProfile;
+use App\ProfileHistorie;
 use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +46,7 @@ class ProfileController extends Controller
         // $profile = Profile::where('user_id', $request->id)->get();
         $profile = Auth::user()->profile;
 
-        $history = new HistorieProfile;
+        $history = new ProfileHistorie;
         if(empty($profile)){
             abort(404);
         }
@@ -63,7 +63,7 @@ class ProfileController extends Controller
         // dd($profile);
         $profile->fill($form)->save();
 
-        $history = new HistorieProfile;
+        $history = new ProfileHistorie;
         $history->profile_id = $profile->id;
         $history->edited_at = Carbon::now();
         $history->save();
