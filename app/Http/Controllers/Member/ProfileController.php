@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Profile;
 use App\User;
+use App\News;
 
 use App\ProfileHistorie;
 use Carbon\Carbon;
@@ -17,6 +18,18 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
+    public function index(Request $request){
+        $cond_title = $request->cond_title;
+        $news = Auth::user()->news;
+        
+        if ($cond_title != '') {
+            $posts = Auth::user()->news->where('title', 'like', '%' . $cond_title . '%')->get();
+        } else {
+            $posts = Auth::user()->news;
+        }
+        // dd($news);
+        return view('member.profile.index', ['posts' => $posts, 'cond_title' => $cond_title] );
+    }
     //
     public function add()
     {

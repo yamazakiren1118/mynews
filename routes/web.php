@@ -31,6 +31,7 @@ Route::group(['prefix' => 'member'], function(){
     Route::get('profile/edit', 'Member\ProfileController@edit')->middleware('auth');
     Route::post('profile/edit', 'Member\ProfileController@update');
     
+    Route::get('profile/news', 'Member\ProfileController@index')->middleware('auth');
 });
 
 // 課題追加分

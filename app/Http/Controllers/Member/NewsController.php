@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\News;
 use App\NewsHistory;
 use Carbon\Carbon;
+use Storage;
 // use App\User;
 // use Illuminate\Support\Facades\Hash;
 
@@ -30,8 +31,10 @@ class NewsController extends Controller
         // dd($form,$request);
 
         if (isset($form['image'])) {
-            $path = $request->file('image')->store('public/image');
-            $news->image_path = basename($path);
+            // $path = $request->file('image')->store('public/image');
+            // $news->image_path = basename($path);
+            $path = Storage::disk('s3')->putFile('/',$form['image'],'public');
+            $news->image_path = Storage::disk('s3')->url($path);
         } else {
             $news->image_path = null;
         }
@@ -86,8 +89,10 @@ class NewsController extends Controller
         if ($request->remove == 'true') {
             $news_form['image_path'] = null;
         } elseif ($request->file('image')) {
-            $path = $request->file('image')->store('public/image');
-            $news_form['image_path'] = basename($path);
+            // $path = $request->file('image')->store('public/image');
+            // $news_form['image_path'] = basename($path);
+            $path = Storage::disk('s3')->putFile('/',$form['image'],'public');
+            $news->image_path = Storage::disk('s3')->url($path);
         } else {
             $news_form['image_path'] = $news->image_path;
         }
